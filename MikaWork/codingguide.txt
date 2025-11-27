@@ -1,0 +1,16 @@
+1.Bennenung
+ 	Sprechende Namen. KEINE ABKÜRZUNGEN
+	camelCase Benennung von Variablen und Funktionen
+	PascalCase Klassen und Komponenten
+	UPPER_CASE_WITH_UNDERSCORES für Konstanten
+
+2.Struktur
+	Pro Zeile eine Aussage
+	einheitliches einrücken
+	logische abschnitte durch Zeilenumbrüche
+	Kommentare für nicht selbsterklärenden Code
+
+3.Fehler
+	Viele Catches, sodass Fehler eindeutig zugeordnet werden können
+	Catches müssen dafür natürlich verständlich erklärend formuliert seien
+	
