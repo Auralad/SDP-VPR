@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzFinanzes</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-title">EzFinanzes</div>
+        <nav>
+            <a href="#">Transaktionsseite</a>
+            <a href="#">Prognosen</a>
+            <a href="#">Statistiken</a>
+            <a href="#">Kreditkarten hinzufügen</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="row">
+            
+            <div class="card half">
+                <h2>Budget Übersicht</h2>
+
+                <canvas id="kreisDiagramm" width="300" height="300"></canvas>
+            </div>
+
+            <div class="card half">
+                <h2>Konten</h2>
+                <ul id="accountsList" class="account-list"></ul>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
