@@ -32,13 +32,10 @@ CREATE TABLE `konten` (
 
 CREATE TABLE `externe_kontakte` (
   `kontaktid` INT NOT NULL AUTO_INCREMENT,
-  `uid` INT NOT NULL,
   `iban` VARCHAR(34),
   `name` VARCHAR(50),
   `bank` VARCHAR(50),
   PRIMARY KEY (`kontaktid`),
-  KEY `idx_externe_uid` (`uid`),
-  CONSTRAINT `fk_user_externe_kontakte` FOREIGN KEY (`uid`) REFERENCES `user`(`uid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `transaktionen` (
@@ -149,14 +146,14 @@ INSERT INTO `konten` (`kid`,`uid`,`balance`) VALUES
 (104, 4, 3500.00),
 (105, 5, 12345.67);
 
-INSERT INTO `externe_kontakte` (`kontaktid`,`uid`,`iban`,`name`,`bank`) VALUES
-(201, 1, 'DE89370400440532013000', 'LIDL', 'Sparkasse'),
-(202, 2, 'DE75512108001245126199', 'Kunze GmbH&CoKG',   'Commerzbank'),
-(203, 3, 'DE21500105179312345678', 'Ralf Schuhmacher', 'Deutsche Bank'),
-(204, 4, 'DE44200700100234567890', 'Kim Jong Un',  'Postbank'),
-(205, 5, 'DE98100500001234567890', 'Daniel',  'ING'),
-(206, 5, 'DE98100500001234567891', 'Disney+',  'ING'),
-(207, 5, 'DE98100500001234567892', 'Spotify',  'ING');
+INSERT INTO `externe_kontakte` (`kontaktid`,`iban`,`name`,`bank`) VALUES
+(201, 'DE89370400440532013000', 'LIDL', 'Sparkasse'),
+(202, 'DE75512108001245126199', 'Kunze GmbH&CoKG',   'Commerzbank'),
+(203, 'DE21500105179312345678', 'Ralf Schuhmacher', 'Deutsche Bank'),
+(204, 'DE44200700100234567890', 'Kim Jong Un',  'Postbank'),
+(205, 'DE98100500001234567890', 'Daniel',  'ING'),
+(206, 'DE98100500001234567891', 'Disney+',  'ING'),
+(207, 'DE98100500001234567892', 'Spotify',  'ING');
 
 -- beim eingeben die NULL werte beachten
 INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`,`trans_value`,`trans_date`,`trans_message`) VALUES
@@ -182,4 +179,5 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1115, 101, NULL, NULL, 207, 12.99,   STR_TO_DATE('23.11.2025','%d.%m.%Y'), 'Spotify Abo November 2025'),
 (1116, 101, NULL, NULL, 201, 8.50,    STR_TO_DATE('03.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 (1117, 101, NULL, NULL, 201, 27.30,   STR_TO_DATE('18.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
+
 (1118, 101, NULL, NULL, 201, 15.60,   STR_TO_DATE('30.11.2025','%d.%m.%Y'), 'Lidl Einkauf');
