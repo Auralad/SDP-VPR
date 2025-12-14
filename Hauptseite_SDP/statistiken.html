@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>EzFinanzes</title>
+    <title>Statistiken – EzFinanzes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="styles.css">
@@ -19,7 +19,7 @@
         <div class="dropdown">
             <button class="dropbtn">Menü ▾</button>
             <div class="dropdown-content">
-                <a href="#">Dashboard</a>
+                <a href="index.html">Dashboard</a>
                 <a href="#">Transaktionen</a>
                 <a href="#">Prognosen</a>
                 <a href="statistiken.html">Statistiken</a>
@@ -32,20 +32,18 @@
 </header>
 
 <main>
-    <section class="row">
-        <div class="card half">
-            <h2>Budget Übersicht</h2>
-            <canvas id="kreisDiagramm"></canvas>
-        </div>
+    <div class="card">
+        <h2>Monatlicher Vergleich</h2>
+        <canvas id="monthlyChart"></canvas>
+    </div>
 
-        <div class="card half">
-            <h2>Konten</h2>
-            <ul id="accountsList" class="account-list"></ul>
-        </div>
-    </section>
+    <div class="card">
+        <h2>Zusammenfassung</h2>
+        <p id="summaryText"></p>
+    </div>
 </main>
 
-<script src="script.js"></script>
 <script src="navbar.js"></script>
+<script src="statistiken.js"></script>
 </body>
 </html>
