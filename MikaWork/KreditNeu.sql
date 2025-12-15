@@ -25,6 +25,8 @@ CREATE TABLE `konten` (
   `kid` INT NOT NULL AUTO_INCREMENT,
   `uid` INT NOT NULL,
   `balance` DECIMAL(11,2) NOT NULL DEFAULT 0.00,
+  `kartenname` VARCHAR(50) NOT NULL,
+  `kartennummer` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`kid`),
   KEY `idx_konten_uid` (`uid`),
   CONSTRAINT `fk_user_konten` FOREIGN KEY (`uid`) REFERENCES `user`(`uid`) ON DELETE CASCADE
@@ -139,12 +141,12 @@ INSERT INTO `user` (`uid`,`forename`,`lastname`,`bundesland`,`birth`,`username`,
 (4, 'Marius',      'Sand',    'Sachsen',STR_TO_DATE('22.10.1995', '%d.%m.%Y'), 'marius_sand',         'M4rius!'),
 (5, 'Anna',        'Müller',  'Hamburg',STR_TO_DATE('12.06.1988', '%d.%m.%Y'), 'anna.mueller',        'AnnaPwd88');
 
-INSERT INTO `konten` (`kid`,`uid`,`balance`) VALUES
-(101, 1, 17.35),
-(102, 2, 83932761.73),
-(103, 3, 2500.00),
-(104, 4, 3500.00),
-(105, 5, 12345.67);
+INSERT INTO `konten` (`kid`,`uid`,`balance`, `kartenname`,`kartennummer`) VALUES
+(101, 1, 17.35, "MasterCard", 123456789010111213),
+(102, 2, 83932761.73, "VISA", 1111222233334444),
+(103, 3, 2500.00, "VolksBank", 9988401133771234),
+(104, 4, 3500.00, "MasterCard", 1212343456567878),
+(105, 5, 12345.67, "MasterCard", 9090878766552212);
 
 INSERT INTO `externe_kontakte` (`kontaktid`,`iban`,`name`,`bank`) VALUES
 (201, 'DE89370400440532013000', 'LIDL', 'Sparkasse'),
@@ -181,3 +183,4 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1117, 101, NULL, NULL, 201, 27.30,   STR_TO_DATE('18.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 
 (1118, 101, NULL, NULL, 201, 15.60,   STR_TO_DATE('30.11.2025','%d.%m.%Y'), 'Lidl Einkauf');
+
