@@ -146,7 +146,9 @@ INSERT INTO `konten` (`kid`,`uid`,`balance`, `kartenname`,`kartennummer`) VALUES
 (102, 2, 83932761.73, "VISA", 1111222233334444),
 (103, 3, 2500.00, "VolksBank", 9988401133771234),
 (104, 4, 3500.00, "MasterCard", 1212343456567878),
-(105, 5, 12345.67, "MasterCard", 9090878766552212);
+(105, 5, 12345.67, "MasterCard", 9090878766552212),
+(106, 1, 2000.76, "Sparkasse", 1629632793016237),
+(107, 1, 2.71, "VISA", 1827297139213574);
 
 INSERT INTO `externe_kontakte` (`kontaktid`,`iban`,`name`,`bank`) VALUES
 (201, 'DE89370400440532013000', 'LIDL', 'Sparkasse'),
@@ -164,6 +166,7 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1003, 105, NULL, 101, NULL, 50.67, STR_TO_DATE('10.04.2025','%d.%m.%Y'), 'Rückzahlung'),
 (1004, 102, NULL, 103, NULL, 1.00,   STR_TO_DATE('20.05.2025','%d.%m.%Y'), 'Überweisung an Dominik'),
 (1005, 104, NULL, 105, NULL, 10.00,  STR_TO_DATE('02.07.2025','%d.%m.%Y'), 'Kleiner Betrag'),
+  
 (1101, NULL, 202, 101, NULL, 2000.00, STR_TO_DATE('02.09.2025','%d.%m.%Y'), 'Gehalt September 2025'),
 (1102, 101, NULL, NULL, 206, 7.99,    STR_TO_DATE('13.09.2025','%d.%m.%Y'), 'Disney+ Abo September 2025'),
 (1103, 101, NULL, NULL, 207, 12.99,   STR_TO_DATE('23.09.2025','%d.%m.%Y'), 'Spotify Abo September 2025'),
@@ -174,6 +177,7 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1108, 101, NULL, NULL, 206, 7.99,    STR_TO_DATE('13.10.2025','%d.%m.%Y'), 'Disney+ Abo Oktober 2025'),
 (1109, 101, NULL, NULL, 207, 12.99,   STR_TO_DATE('23.10.2025','%d.%m.%Y'), 'Spotify Abo Oktober 2025'),
 (1110, 101, NULL, NULL, 201, 6.20,    STR_TO_DATE('04.10.2025','%d.%m.%Y'), 'Lidl Einkauf'),
+  
 (1111, 101, NULL, NULL, 201, 18.75,   STR_TO_DATE('15.10.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 (1112, 101, NULL, NULL, 201, 11.40,   STR_TO_DATE('27.10.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 (1113, NULL, 202, 101, NULL, 2000.00, STR_TO_DATE('02.11.2025','%d.%m.%Y'), 'Gehalt November 2025'),
@@ -181,7 +185,7 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1115, 101, NULL, NULL, 207, 12.99,   STR_TO_DATE('23.11.2025','%d.%m.%Y'), 'Spotify Abo November 2025'),
 (1116, 101, NULL, NULL, 201, 8.50,    STR_TO_DATE('03.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 (1117, 101, NULL, NULL, 201, 27.30,   STR_TO_DATE('18.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
-
 (1118, 101, NULL, NULL, 201, 15.60,   STR_TO_DATE('30.11.2025','%d.%m.%Y'), 'Lidl Einkauf');
+
 
 
