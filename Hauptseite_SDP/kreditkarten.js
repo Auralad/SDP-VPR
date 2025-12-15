@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const karten = [
-        { name: "Visa Gold", number: "**** **** **** 1234", limit: 5000 },
+    const cards = [
+        { name: "Volksbank", number: "**** **** **** 1234", limit: 5000 },
         { name: "Mastercard", number: "**** **** **** 5678", limit: 3000 },
-        { name: "Amex", number: "**** **** **** 9012", limit: 8000 }
+        { name: "Sparkasse", number: "**** **** **** 9012", limit: 8000 }
     ];
 
-    const list = document.getElementById("kartenList");
+    const list = document.getElementById("cardList");
     list.innerHTML = "";
 
-    karten.forEach(card => {
+    cards.forEach(card => {
         const li = document.createElement("li");
         li.innerHTML = `
             <span>
