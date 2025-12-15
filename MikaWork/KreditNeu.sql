@@ -37,7 +37,7 @@ CREATE TABLE `externe_kontakte` (
   `iban` VARCHAR(34),
   `name` VARCHAR(50),
   `bank` VARCHAR(50),
-  PRIMARY KEY (`kontaktid`),
+  PRIMARY KEY (`kontaktid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `transaktionen` (
@@ -183,4 +183,5 @@ INSERT INTO `transaktionen` (`tid`,`from_kid`,`from_extern`,`to_kid`,`to_extern`
 (1117, 101, NULL, NULL, 201, 27.30,   STR_TO_DATE('18.11.2025','%d.%m.%Y'), 'Lidl Einkauf'),
 
 (1118, 101, NULL, NULL, 201, 15.60,   STR_TO_DATE('30.11.2025','%d.%m.%Y'), 'Lidl Einkauf');
+
 
