@@ -16,6 +16,7 @@ $routes = [
     "konten"        => $base . "/routes/konten.php",
     "externe"       => $base . "/routes/externe.php",
     "transaktionen" => $base . "/routes/transaktionen.php",
+    "login"         => $base . "/frontend/login.php",
 ];
 
 if (!array_key_exists($route, $routes)) {

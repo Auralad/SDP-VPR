@@ -20,7 +20,7 @@ class UsersController {
             ":bundesland" => $data["bundesland"],
             ":birth" => $data["birth"],
             ":username" => $data["username"],
-            ":password" => $data["password"] // DU sagtest: keine Verschlüsselung notwendig
+            ":password" => $data["password"]
         ]);
         return ["message" => "User created"];
     }
