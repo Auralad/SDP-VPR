@@ -8,7 +8,11 @@ $controller = new TransaktionenController($db);
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case "GET":
-        echo json_encode($controller->getAll());
+        if (isset($_GET['q'])) {
+            echo json_encode($controller->searchContacts($_GET['q']));
+        } else {
+            echo json_encode($controller->getAll());
+        }
         break;
 
     case "POST":

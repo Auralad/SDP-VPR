@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "/api/transaktionen";
+    const API_URL = "http://localhost/api/transaktionen";
 
-    const container = document.createElement("div");
+    const container = document.getElementById("transaktionen-container");
+
     container.style.maxWidth = "600px";
     container.style.margin = "20px auto";
     container.style.fontFamily = "Arial, sans-serif";
+
 
     const listBox = document.createElement("div");
     listBox.style.border = "1px solid #ccc";
@@ -19,12 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     container.appendChild(listBox);
     container.appendChild(formBox);
-    document.body.appendChild(container);
 
     function senderText(t) {
         if (t.from_kid !== null) {
             const name = [t.from_forename, t.from_lastname].filter(Boolean).join(" ");
-            return name ? `Kunde: ${name}` : `Kunde #${t.from_kid}`;
+            return name ? `Von: ${name}` : `Kunde #${t.from_kid}`;
         }
         if (t.from_extern !== null) {
             return t.from_extern_name
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function receiverText(t) {
         if (t.to_kid !== null) {
             const name = [t.to_forename, t.to_lastname].filter(Boolean).join(" ");
-            return name ? `Kunde: ${name}` : `Kunde #${t.to_kid}`;
+            return name ? `An: ${name}` : `Kunde #${t.to_kid}`;
         }
         if (t.to_extern !== null) {
             return t.to_extern_name
@@ -47,9 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return "Unbekannt";
     }
 
-
     function renderTransactions(data) {
-        listBox.innerHTML = "<h3>Test</h3>";
+        listBox.innerHTML = "<h3>All deine Transaktionen auf einen Blick</h3>";
 
         function formatDate(val) {
             if (!val && val !== 0) return "";
@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function searchContacts(query) {
-        const res = await fetch(`/api/transaktionen/search?q=${encodeURIComponent(query)}`);
-        return res.json();
+        const res = await fetch(`${API_URL}?q=${encodeURIComponent(query)}`);
+        return await res.json();
     }
     function setupAutocomplete(inputEl, listEl) {
         let selected = { kid: null, extern: null };
@@ -124,54 +124,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return () => selected;
     }
-    const getSender = setupAutocomplete(
-        document.getElementById("senderInput"),
-        document.getElementById("senderSuggestions")
-    );
+
+    formBox.innerHTML = `
+<h3>Neue Transaktion</h3>
+<form id="transForm">
+
+    <label>Von Konto:</label><br>
+    <select name="from_kid" required>
+        <option value="">-- bitte wählen --</option>
+        <option value="107">VISA</option>
+        <option value="101">MasterCard</option>
+        <option value="106">Sparkasse</option>
+    </select>
+    <br><br>
+
+    <label>Empfänger:</label><br>
+    <input id="receiverInput" placeholder="Empfänger" autocomplete="off"><br>
+    <div id="receiverSuggestions"></div><br>
+
+    <input placeholder="Betrag" name="trans_value" required><br><br>
+    <input placeholder="Nachricht" name="trans_message"><br><br>
+
+    <button type="submit">Speichern</button>
+</form>
+`;
+
+
+//    const getSender = setupAutocomplete(
+//        document.getElementById("senderInput"),//.style.display="none",
+//        document.getElementById("senderSuggestions")//.style.display="none"
+//    );
 
     const getReceiver = setupAutocomplete(
         document.getElementById("receiverInput"),
         document.getElementById("receiverSuggestions")
     );
 
-    formBox.innerHTML = `
-    <h3>Neue Transaktion</h3>
-    <form id="transForm">
-        <input id="senderInput" placeholder="Sender" autocomplete="off"><br>
-        <div id="senderSuggestions"></div><br>
-
-        <input id="receiverInput" placeholder="Empfänger" autocomplete="off"><br>
-        <div id="receiverSuggestions"></div><br>
-
-        <input placeholder="Betrag" name="trans_value" required><br><br>
-        <input placeholder="Nachricht" name="trans_message"><br><br>
-
-        <button type="submit">Speichern</button>
-    </form>
-    `;
-
-    function parseIdField(val) {
-        if (val === null || val === "" || val === undefined) return null;
-        const n = parseInt(String(val).trim(), 10);
-        return isNaN(n) ? null : n;
-    }
-
-    function classifyId(n) {
-        if (n === null) return { kid: null, extern: null };
-        if (n >= 100 && n <= 199) return { kid: n, extern: null };
-        if (n >= 200 && n <= 299) return { kid: null, extern: n };
-        return { kid: null, extern: null };
-    }
+    
 
     document.getElementById("transForm").addEventListener("submit", async e => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        const fromId = parseIdField(formData.get("sender"));
-        const toId = parseIdField(formData.get("empfaenger"));
+        document.getElementById("transForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
-        const fromClass = classifyId(fromId);
-        const toClass = classifyId(toId);
+    const fromKid = parseInt(formData.get("from_kid"), 10);
+    const selectedReceiver = getReceiver();
+
+    if (!fromKid) {
+        alert("Bitte ein Konto auswählen.");
+        return;
+    }
+
+    if (selectedReceiver.kid === null && selectedReceiver.extern === null) {
+        alert("Bitte einen Empfänger auswählen.");
+        return;
+    }
+
+    let rawAmount = formData.get("trans_value") ?? "";
+    rawAmount = String(rawAmount).replace(",", ".").trim();
+    const amount = parseFloat(rawAmount);
+
+    if (isNaN(amount)) {
+        alert("Ungültiger Betrag.");
+        return;
+    }
+
+    const payload = {
+        from_kid: fromKid,
+        from_extern: null,
+        to_kid: selectedReceiver.kid,
+        to_extern: selectedReceiver.extern,
+        trans_value: amount,
+        trans_message: formData.get("trans_message") || null
+    };
+
+    await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    e.target.reset();
+    loadTransactions();
+    });
+        const selectedReceiver = getReceiver();
 
         let rawAmount = formData.get("trans_value") ?? "";
         rawAmount = String(rawAmount).replace(",", ".").trim();
@@ -182,17 +221,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if ((fromId !== null && fromClass.kid === null && fromClass.extern === null) ||
-            (toId !== null && toClass.kid === null && toClass.extern === null)) {
-            alert("Sender/Empfänger-ID außerhalb des erlaubten Bereichs (100-199 intern, 200-299 extern).");
+        if ((selectedSender.kid === null && selectedSender.extern === null) ||
+            (selectedReceiver.kid === null && selectedReceiver.extern === null)) {
+            alert("Bitte Sender und Empfänger auswählen.");
             return;
         }
 
         const payload = {
-            from_kid: fromClass.kid,
-            from_extern: fromClass.extern,
-            to_kid: toClass.kid,
-            to_extern: toClass.extern,
+            from_kid: selectedSender.kid,
+            from_extern: selectedSender.extern,
+            to_kid: selectedReceiver.kid,
+            to_extern: selectedReceiver.extern,
             trans_value: amount,
             trans_message: formData.get("trans_message") || null
         };
