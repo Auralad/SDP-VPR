@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "http://localhost/api/transaktionen";
+    const API_URL = "http://localhost/api/index.php?route=transaktionen";
 
     const container = document.getElementById("transaktionen-container");
 
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function searchContacts(query) {
-        const res = await fetch(`${API_URL}?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`${API_URL}&q=${encodeURIComponent(query)}`);
         return await res.json();
     }
     function setupAutocomplete(inputEl, listEl) {
@@ -166,85 +166,57 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        document.getElementById("transForm").addEventListener("submit", async e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-
-    const fromKid = parseInt(formData.get("from_kid"), 10);
-    const selectedReceiver = getReceiver();
-
-    if (!fromKid) {
-        alert("Bitte ein Konto auswählen.");
-        return;
-    }
-
-    if (selectedReceiver.kid === null && selectedReceiver.extern === null) {
-        alert("Bitte einen Empfänger auswählen.");
-        return;
-    }
-
-    let rawAmount = formData.get("trans_value") ?? "";
-    rawAmount = String(rawAmount).replace(",", ".").trim();
-    const amount = parseFloat(rawAmount);
-
-    if (isNaN(amount)) {
-        alert("Ungültiger Betrag.");
-        return;
-    }
-
-    const payload = {
-        from_kid: fromKid,
-        from_extern: null,
-        to_kid: selectedReceiver.kid,
-        to_extern: selectedReceiver.extern,
-        trans_value: amount,
-        trans_message: formData.get("trans_message") || null
-    };
-
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
-
-    e.target.reset();
-    loadTransactions();
-    });
+        const fromKid = parseInt(formData.get("from_kid"), 10);
         const selectedReceiver = getReceiver();
 
-        let rawAmount = formData.get("trans_value") ?? "";
-        rawAmount = String(rawAmount).replace(",", ".").trim();
-        const amount = rawAmount === "" ? null : parseFloat(rawAmount);
-
-        if (amount === null || isNaN(amount)) {
-            alert("Ungültiger Betrag.");
+        if (!fromKid) {
+            alert("Bitte ein Konto auswählen.");
             return;
         }
 
-        if ((selectedSender.kid === null && selectedSender.extern === null) ||
-            (selectedReceiver.kid === null && selectedReceiver.extern === null)) {
-            alert("Bitte Sender und Empfänger auswählen.");
+        if (selectedReceiver.kid === null && selectedReceiver.extern === null) {
+            alert("Bitte einen Empfänger auswählen.");
+            return;
+        }
+
+        let rawAmount = formData.get("trans_value") ?? "";
+        rawAmount = String(rawAmount).replace(",", ".").trim();
+        const amount = parseFloat(rawAmount);
+
+        if (isNaN(amount) || amount <= 0) {
+            alert("Bitte einen gültigen Betrag größer als 0 eingeben.");
             return;
         }
 
         const payload = {
-            from_kid: selectedSender.kid,
-            from_extern: selectedSender.extern,
+            from_kid: fromKid,
+            from_extern: null,
             to_kid: selectedReceiver.kid,
             to_extern: selectedReceiver.extern,
             trans_value: amount,
             trans_message: formData.get("trans_message") || null
         };
 
-        await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
 
-        e.target.reset();
-        loadTransactions();
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            e.target.reset();
+            loadTransactions();
+            alert(`Transaktion über ${amount.toFixed(2)} € wurde erfolgreich durchgeführt!`);
+        } catch (error) {
+            console.error('Fehler beim Speichern der Transaktion:', error);
+            alert("Fehler beim Durchführen der Transaktion. Bitte versuchen Sie es erneut.");
+        }
     });
 
     loadTransactions();
+    window.addEventListener('transaktionNeugeladen', loadTransactions);
 });

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrieren – EzFinanzes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-title">EzFinanzes</div>
+</header>
+
+<main>
+    <div class="card auth-card" style="max-width:400px;margin:auto;">
+        <h2>Registrierung</h2>
+
+        <form id="registerForm">
+            <label>Name</label><br>
+            <input id="name" type="text" required style="width:90%;padding:10px;margin-bottom:15px;"><br>
+
+            <label>E-Mail</label><br>
+            <input id="email" type="email" required style="width:90%;padding:10px;margin-bottom:15px;"><br>
+
+            <label>Passwort</label><br>
+            <input id="password" type="password" required style="width:90%;padding:10px;margin-bottom:20px;"><br>
+
+            <button type="submit" style="width:90%;padding:10px;">
+                Registrieren
+            </button>
+        </form>
+
+        <p style="margin-top:15px;text-align:center;">
+            Bereits registriert?
+            <a href="login.html">Zum Login</a>
+        </p>
+    </div>
+</main>
+
+<script src="register.js"></script>
+</body>
+</html>

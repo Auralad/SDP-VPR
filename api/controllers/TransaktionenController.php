@@ -90,14 +90,14 @@ public function searchContacts(string $q) {
         INSERT INTO transaktionen
         (from_kid, from_extern, to_kid, to_extern, trans_value, trans_date, trans_message)
         VALUES
-        (:from_kid, NULL, :to_kid, :to_extern, :trans_value, CURDATE(), :trans_message)
+        (:from_kid, NULL, :to_kid, :to_extern, :trans_value, NOW(), :trans_message)
     ");
 
     $stmt->execute([
         ":from_kid"      => $fromKid,
         ":to_kid"        => $data["to_kid"] ?? null,
         ":to_extern"     => $data["to_extern"] ?? null,
-        ":trans_value"   => $data["trans_value"],
+        ":trans_value"   => abs($data["trans_value"]),
         ":trans_message" => $data["trans_message"] ?? null
     ]);
 
