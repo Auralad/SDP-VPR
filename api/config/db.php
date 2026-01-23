@@ -1,10 +1,10 @@
 <?php
 
 class DB {
-    private $host = "localhost";
-    private $db   = "ezfinanzes";
-    private $user = "root";
-    private $pass = "root";
+   private $host = "mysql.pb.bib.de";
+    private $db   = "pbd2h24asu";
+    private $user = "pbd2h24asu";
+    private $pass = "2Sj2PyUSvLtW";
 
     public function connect() {
         try {
@@ -21,3 +21,4 @@ class DB {
         }
     }
 }
+
