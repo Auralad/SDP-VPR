@@ -1,7 +1,9 @@
+//mika
 document.addEventListener("DOMContentLoaded", () => {
     const API_URL = "http://localhost/api/index.php?route=transaktionen";
 
     const container = document.getElementById("transaktionen-container");
+    const formContainer = document.getElementById("new-transaction-form");
 
     container.style.maxWidth = "600px";
     container.style.margin = "20px auto";
@@ -125,10 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return () => selected;
     }
 
-    formBox.innerHTML = `
-<h3>Neue Transaktion</h3>
+    formContainer.innerHTML = `
 <form id="transForm">
-
+    <br><br>
     <label>Von Konto:</label><br>
     <select name="from_kid" required>
         <option value="">-- bitte wählen --</option>
@@ -148,12 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <button type="submit">Speichern</button>
 </form>
 `;
-
-
-//    const getSender = setupAutocomplete(
-//        document.getElementById("senderInput"),//.style.display="none",
-//        document.getElementById("senderSuggestions")//.style.display="none"
-//    );
 
     const getReceiver = setupAutocomplete(
         document.getElementById("receiverInput"),

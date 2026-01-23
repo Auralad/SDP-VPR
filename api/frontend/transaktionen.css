@@ -1,4 +1,4 @@
-/* Reset und Basiseinstellungen */
+/*mika*/
 * {
     margin: 0;
     padding: 0;
@@ -12,30 +12,7 @@ body {
     line-height: 1.6;
 }
 
-.navbar {
-    position: sticky;
-    top: 0;
-    background: #1a73e8;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.nav-title {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.navbar a {
-    color: white;
-    margin-left: 15px;
-    text-decoration: none;
-}
-
-
-/* Hauptcontainer */
 .container {
     display: flex;
     max-width: 1200px;
@@ -44,14 +21,12 @@ body {
     gap: 30px;
 }
 
-/* Responsive Anpassung */
 @media (max-width: 992px) {
     .container {
         flex-direction: column;
     }
 }
 
-/* Sektionen */
 .transactions-section {
     flex: 3;
 }
@@ -60,7 +35,6 @@ body {
     flex: 2;
 }
 
-/* Sektionstitel */
 .section-title {
     display: flex;
     align-items: center;
@@ -80,7 +54,6 @@ body {
     font-size: 20px;
 }
 
-/* Transaktions-Container */
 .transactions-container {
     background: white;
     border-radius: 12px;
@@ -89,7 +62,6 @@ body {
     overflow: hidden;
 }
 
-/* Transaktions-Header */
 .transactions-header {
     background: linear-gradient(to right, #f8fbff, #eef5ff);
     padding: 18px 20px;
@@ -102,13 +74,11 @@ body {
     font-weight: 600;
 }
 
-/* Transaktions-Liste */
 .transactions-list {
     max-height: 600px;
     overflow-y: auto;
 }
 
-/* Transaktions-Elemente */
 .transaction-item {
     padding: 18px 20px;
     border-bottom: 1px solid #f0f4f8;
@@ -157,7 +127,6 @@ body {
     border-left: 3px solid #66b0ff;
 }
 
-/* Neue Transaktions-Formular */
 .new-transaction-form-container {
     background: white;
     border-radius: 12px;
@@ -166,7 +135,6 @@ body {
     padding: 25px;
 }
 
-/* Formular-Elemente */
 .form-group {
     margin-bottom: 20px;
 }
@@ -194,7 +162,6 @@ body {
     box-shadow: 0 0 0 3px rgba(102, 176, 255, 0.2);
 }
 
-/* Autocomplete */
 .autocomplete-container {
     position: relative;
 }
@@ -225,7 +192,6 @@ body {
     background-color: #eef5ff;
 }
 
-/* Submit-Button */
 .btn-submit {
     background: linear-gradient(135deg, #0052cc 0%, #0073e6 100%);
     color: white;
@@ -257,7 +223,6 @@ body {
     box-shadow: none;
 }
 
-/* Leer- und Ladezustände */
 .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -270,7 +235,6 @@ body {
     color: #dee2e6;
 }
 
-/* Scrollbar Styling */
 .transactions-list::-webkit-scrollbar {
     width: 8px;
 }

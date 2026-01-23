@@ -1,7 +1,7 @@
 <?php
-
+//mika
 class DB {
-   private $host = "mysql.pb.bib.de";
+    private $host = "mysql.pb.bib.de";
     private $db   = "pbd2h24asu";
     private $user = "pbd2h24asu";
     private $pass = "2Sj2PyUSvLtW";
@@ -21,4 +21,3 @@ class DB {
         }
     }
 }
-

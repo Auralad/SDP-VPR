@@ -1,3 +1,4 @@
+//mika
 document.addEventListener("DOMContentLoaded", () => {
 
     const API_URL = "http://localhost/api/index.php?route=konten";
