@@ -27,15 +27,13 @@
         
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?action=login">
             <div class="form-group">
-                <label for="username">Benutzername:</label>
-                <input type="text" id="username" name="username" 
-                    value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="password">Passwort:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+                <label for="username">Benutzername</label>
+            <input type="text" name="username" id="username" required autofocus
+                value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+
+            <label for="password">Passwort</label>
+            <input type="password" name="password" id="password" required>
+
             <button type="submit">Einloggen</button>
         </form>
     </div>
